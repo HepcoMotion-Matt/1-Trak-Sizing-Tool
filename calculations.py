@@ -1,7 +1,7 @@
 import streamlit as st
 import numpy as np
 
-def carriage_geo(outer_bearing,inner_bearing,bearing_spacing_o,slide,ring_pcd,orientation):
+def carriage_geo(outer_bearing,inner_bearing,bearing_spacing_x,slide,ring_pcd,orientation):
     match outer_bearing:
         case "J25":
             apex_o = 20.270
@@ -23,14 +23,23 @@ def carriage_geo(outer_bearing,inner_bearing,bearing_spacing_o,slide,ring_pcd,or
             apex_s = 44.74
     
     bearing_spacing_y = apex_s + ((apex_o + apex_i)/2)
-    inner_radius = (ring_pcd - apex_s)/2
-    inner_bearing_path_r = inner_radius - (apex_i/2)
-    bearing_to_bearing_path = np.sqrt(bearing_spacing_y**2 + (bearing_spacing_o/2)**2)
-    outer_bearing_path_r = inner_bearing_path_r + bearing_to_bearing_path
-    outer_radius = outer_bearing_path_r
-    
+
     match orientation:
         case "Outside":
-            st.write("test")
+            outer_radius = (ring_pcd + apex_s)/2
+            outer_bearing_path_r = outer_radius + (apex_o/2)
+            sector_angle = np.rad2deg(np.arcsin((bearing_spacing_x/2)/outer_bearing_path_r))*2
+            h = outer_bearing_path_r * (1 - (np.cos(np.deg2rad(sector_angle)/2)))
+            apex_r = bearing_spacing_y + h - ((apex_i/2)+(apex_o/2))
+            inner_radius = outer_radius - apex_r
+            inner_bearing_path_r = inner_radius - (apex_i/2)
+        case "Inside":
+            inner_radius = (ring_pcd - apex_s)/2
+            inner_bearing_path_r = inner_radius - (apex_i/2)
+            sector_angle = np.rad2deg(np.arcsin((bearing_spacing_x/2)/inner_bearing_path_r))*2
+            h = inner_bearing_path_r * (1 - (np.cos(np.deg2rad(sector_angle)/2)))
+            apex_r = bearing_spacing_y - h - ((apex_i/2)+(apex_o/2))
+            outer_radius = inner_radius + apex_r
+            outer_bearing_path_r = outer_radius + (apex_o/2)
     
-    return bearing_spacing_y,inner_radius,inner_bearing_path_r,outer_bearing_path_r,bearing_to_bearing_path
+    return bearing_spacing_y,outer_radius,outer_bearing_path_r,sector_angle,h,apex_r,inner_radius,inner_bearing_path_r
