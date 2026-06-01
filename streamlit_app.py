@@ -56,7 +56,7 @@ with st.expander("Application Details - Inputs",expanded=True):
                 bearing_spacing_x = st.number_input("Outer Bearing Spacing (D, mm)",min_value=0.0,max_value=500.0,step=0.1,value=50.0,key="spacing_outer")
                 slide = st.selectbox("Slide Geometry", ["NS25", "NM44"],index=1, placeholder="Select Slide Geometry")
             with c3:
-                ring_pcd = st.number_input("Ring PCD (mm)",min_value=100.0,max_value=500.0,value=300.0)
+                ring_pcd = st.number_input("Ring PCD (mm)",min_value=100.0,max_value=5000.0,value=300.0)
         case "Inside":
             c1, c2, c3 = st.columns(3)
             with c1:
@@ -66,7 +66,7 @@ with st.expander("Application Details - Inputs",expanded=True):
                 bearing_spacing_x = st.number_input("Inner Bearing Spacing (D, mm)",min_value=0.0,max_value=500.0,step=0.1,value=50.0,key="spacing_inner")
                 slide = st.selectbox("Slide Geometry", ["NS25", "NM44"],index=1, placeholder="Select Slide Geometry")
             with c3:
-                ring_pcd = st.number_input("Ring PCD (mm)",min_value=100.0,max_value=500.0,value=300.0)
+                ring_pcd = st.number_input("Ring PCD (mm)",min_value=100.0,max_value=5000.0,value=300.0)
 
 match st.button("Calculate"):
     case True:
