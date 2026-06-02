@@ -104,22 +104,22 @@ match st.button("Calculate"):
                     #st.metric("Sector Height (mm)", f'{h:.3f}')
     
     
-result = carriage_geo(outer_bearing,inner_bearing,bearing_spacing_x,slide,ring_pcd,orientation)
+# result = carriage_geo(outer_bearing,inner_bearing,bearing_spacing_x,slide,ring_pcd,orientation)
 
-st.write("outer_bearing:", outer_bearing)
-st.write("carriage_geo result type:", type(result))
-st.write("carriage_geo result:", result)
+# st.write("outer_bearing:", outer_bearing)
+# st.write("carriage_geo result type:", type(result))
+# st.write("carriage_geo result:", result)
 
-if result is None:
-    st.error("carriage_geo() returned None")
-    st.stop()
+# if result is None:
+#     st.error("carriage_geo() returned None")
+#     st.stop()
 
-if not isinstance(result, (tuple, list)):
-    st.error(f"carriage_geo() returned {type(result)}, expected tuple/list")
-    st.stop()
+# if not isinstance(result, (tuple, list)):
+#     st.error(f"carriage_geo() returned {type(result)}, expected tuple/list")
+#     st.stop()
 
-st.write("Returned length:", len(result))
+# st.write("Returned length:", len(result))
 
-if len(result) != 13:
-    st.error(f"carriage_geo() returned {len(result)} values, expected 13")
-    st.stop()
+# if len(result) != 13:
+#     st.error(f"carriage_geo() returned {len(result)} values, expected 13")
+#     st.stop()
