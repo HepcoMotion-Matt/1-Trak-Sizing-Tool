@@ -5,7 +5,7 @@ from pathlib import Path
 # Set the title and favicon that appear in the Browser's tab bar.
 st.set_page_config(
     page_title='1-Trak Sizing Tool',
-    page_icon=':gear:',
+    page_icon=':nut_and_bolt:',
 )
 
 #Left Margin
@@ -70,7 +70,7 @@ with st.expander("Application Details - Inputs",expanded=True):
 
 match st.button("Calculate"):
     case True:
-        bearing_spacing_y,outer_radius,outer_bearing_path_r,sector_angle,h,apex_r,inner_radius,inner_bearing_path_r = carriage_geo(outer_bearing,
+        bearing_spacing_y,outer_radius,outer_bearing_path_r,sector_angle,h,apex_r,inner_radius,inner_bearing_path_r,l1,l2,ms,mv,m = carriage_geo(outer_bearing,
                                                                     inner_bearing,
                                                                     bearing_spacing_x,
                                                                     slide,ring_pcd,
@@ -80,6 +80,16 @@ match st.button("Calculate"):
             with c1:
                 st.subheader("Carriage Dimensions")
                 st.metric("Inner to Outer Bearing Spacing (C, mm)", f'{bearing_spacing_y:.3f}')
+
+                st.subheader("Carriage Capacities")
+                d1,d2 = st.columns(2)
+                with d1:
+                    st.metric("L1 (N)", f'{l1:.0f}')
+                    st.metric("Ms (Nm)", f'{ms:.1f}')
+                    st.metric("Mv (Nm)", f'{mv:.1f}')
+                with d2:
+                    st.metric("L2 (N)", f'{l2:.0f}')
+                    st.metric("M (Nm)", f'{m:.1f}')
             with c2:
                 st.subheader("Ring Dimensions")
                 d1, d2 = st.columns(2)
